@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Keto Week 1 Dashboard</title>
+  <style>
+    :root{--bg:#0d1117;--panel:#161b22;--line:#2b3440;--txt:#e6edf3;--muted:#9fb0c3;--good:#3fb950;--warn:#d29922;--bad:#f85149;--accent:#58a6ff}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 50px}
+    h1{margin:0 0 6px} .sub{color:var(--muted);margin-bottom:18px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0 20px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+    .k{font-size:.8rem;color:var(--muted)} .v{font-size:1.2rem;font-weight:700}
+    .two{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:950px){.two{grid-template-columns:1fr 1fr}}
+    table{width:100%;border-collapse:collapse;font-size:.92rem}
+    th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+    th{color:#c8d6e5;font-weight:600}
+    .pill{padding:2px 8px;border-radius:999px;font-size:.78rem;font-weight:700}
+    .ok{background:#163324;color:#8ce99a}.low{background:#3a2a10;color:#ffda86}.no{background:#3c1d1d;color:#ffb3b3}
+    .barrow{display:grid;grid-template-columns:70px 1fr 48px;gap:8px;align-items:center;margin:6px 0}
+    .bar{height:9px;background:#253042;border-radius:999px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--accent),#7ee787)}
+    ul{margin:8px 0 0 18px} li{margin:6px 0}
+    .muted{color:var(--muted)} a{color:var(--accent);text-decoration:none}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Keto Week 1 Dashboard</h1>
+    <div class="sub">Experiment: Week 1 Keto + Illness + High Workload • Window: Mon Feb 9 → Mon Feb 16, 2026</div>
+
+    <section class="grid" id="weekly-cards"></section>
+
+    <section class="two">
+      <div class="card">
+        <h3 style="margin-top:0">Core Narrative</h3>
+        <p class="muted">Two competing forces: metabolic movement toward ketosis (best clarity days around ketones 0.5–0.6) versus recovery disruption (illness + stress + late nights) causing HRV suppression, RHR rise, sleep decline, and burnout-style crash pattern.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Sleep Load Trend (hours)</h3>
+        <div id="sleep-bars"></div>
+      </div>
+    </section>
+
+    <section class="two" style="margin-top:14px">
+      <div class="card" style="overflow:auto">
+        <h3 style="margin-top:0">KetoMojo Daily (Mon→Mon)</h3>
+        <table id="keto-table"><thead><tr><th>Day</th><th>Date</th><th>Glucose</th><th>Ketones</th><th>GKI</th><th>State</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="card" style="overflow:auto">
+        <h3 style="margin-top:0">Eight Sleep Daily (Tue→Mon)</h3>
+        <table id="sleep-table"><thead><tr><th>Day</th><th>Sleep</th><th>Deep</th><th>REM</th><th>RHR</th><th>HRV</th></tr></thead><tbody></tbody></table>
+      </div>
+    </section>
+
+    <section class="two" style="margin-top:14px">
+      <div class="card">
+        <h3 style="margin-top:0">Dashboard Logic Rules</h3>
+        <ul id="rules"></ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Strongest Insights</h3>
+        <ul id="insights"></ul>
+      </div>
+    </section>
+
+    <p class="muted" style="margin-top:18px">Next data fields to add: <b>clarity score</b>, illness severity, caffeine total, training intensity, late eating, workload spikes.</p>
+    <p><a href="../index.html">← Back to Health</a> • <a href="../../index.html">Dashboard Home</a></p>
+  </main>
+
+<script>
+fetch('./data.json').then(r=>r.json()).then(data=>{
+  const cards = [
+    ['Deep Sleep', data.weeklySummary.deepSleep],
+    ['REM Sleep', data.weeklySummary.remSleep],
+    ['Breath Rate', data.weeklySummary.breathRate],
+    ['Snoring', data.weeklySummary.snoring],
+    ['Resting HR', data.weeklySummary.restingHR],
+    ['HRV', data.weeklySummary.hrv]
+  ];
+  document.getElementById('weekly-cards').innerHTML = cards.map(([k,v])=>`<div class="card"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
+
+  const ktb = document.querySelector('#keto-table tbody');
+  ktb.innerHTML = data.ketoMojo.map(d=>{
+    const cls = d.ketones >= 0.5 ? 'ok' : (d.ketones >= 0.3 ? 'low':'no');
+    return `<tr><td>${d.day}</td><td>${d.date}</td><td>${d.glucose}</td><td>${d.ketones.toFixed(1)}</td><td>${d.gki}</td><td><span class="pill ${cls}">${d.state}</span></td></tr>`
+  }).join('');
+
+  const stb = document.querySelector('#sleep-table tbody');
+  stb.innerHTML = data.sleepDaily.map(d=>`<tr><td>${d.day}</td><td>${d.sleepHours.toFixed(2)}h</td><td>${d.deepHours.toFixed(2)}h</td><td>${d.remHours.toFixed(2)}h</td><td>${d.rhr}</td><td>${d.hrv}</td></tr>`).join('');
+
+  const maxSleep = Math.max(...data.sleepDaily.map(d=>d.sleepHours));
+  document.getElementById('sleep-bars').innerHTML = data.sleepDaily.map(d=>{
+    const w = (d.sleepHours/maxSleep)*100;
+    return `<div class="barrow"><div class="muted">${d.day}</div><div class="bar"><div class="fill" style="width:${w}%"></div></div><div class="muted">${d.sleepHours.toFixed(2)}h</div></div>`
+  }).join('');
+
+  document.getElementById('rules').innerHTML = data.logicRules.map(r=>`<li>${r}</li>`).join('');
+  document.getElementById('insights').innerHTML = data.insights.map(i=>`<li>${i}</li>`).join('');
+});
+</script>
+</body>
+</html>

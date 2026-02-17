@@ -1,0 +1,44 @@
+{
+  "experiment": "Week 1 Keto + Illness + High Workload",
+  "window": "Mon Feb 9 → Mon Feb 16, 2026",
+  "sleepWindow": "Tue → Mon",
+  "goal": "Relate subjective state changes to objective signals (ketones/glucose + recovery markers).",
+  "weeklySummary": {
+    "deepSleep": "1h 18m (15%)",
+    "remSleep": "1h 58m (23%)",
+    "breathRate": "16.0 brpm",
+    "snoring": "14 min",
+    "restingHR": "54 bpm",
+    "hrv": "69 ms"
+  },
+  "ketoMojo": [
+    {"day":"D1","date":"Mon Feb 9","glucose":96,"ketones":0.1,"gki":53.3,"state":"Not in ketosis"},
+    {"day":"D2","date":"Tue Feb 10","glucose":88,"ketones":0.2,"gki":24.4,"state":"Not in ketosis"},
+    {"day":"D3","date":"Wed Feb 11","glucose":89,"ketones":0.5,"gki":9.8,"state":"Borderline/low"},
+    {"day":"D4","date":"Thu Feb 12","glucose":77,"ketones":0.5,"gki":8.5,"state":"Low-level ketosis"},
+    {"day":"D5","date":"Fri Feb 13","glucose":91,"ketones":0.2,"gki":25.2,"state":"Not in ketosis"},
+    {"day":"D6","date":"Sat Feb 14","glucose":85,"ketones":0.6,"gki":7.8,"state":"Low-level ketosis"},
+    {"day":"D7","date":"Sun Feb 15","glucose":92,"ketones":0.1,"gki":51.1,"state":"Not in ketosis"},
+    {"day":"D8","date":"Mon Feb 16","glucose":90,"ketones":0.3,"gki":16.6,"state":"Not in ketosis"}
+  ],
+  "sleepDaily": [
+    {"day":"Tue","sleepHours":9.0,"deepHours":1.5,"remHours":2.17,"breathRate":16.8,"snoreMin":7,"rhr":55,"hrv":59},
+    {"day":"Wed","sleepHours":8.17,"deepHours":1.33,"remHours":2.0,"breathRate":15.8,"snoreMin":20,"rhr":52,"hrv":82},
+    {"day":"Thu","sleepHours":7.33,"deepHours":1.08,"remHours":1.75,"breathRate":14.5,"snoreMin":25,"rhr":57,"hrv":62},
+    {"day":"Fri","sleepHours":8.75,"deepHours":1.42,"remHours":2.0,"breathRate":15.6,"snoreMin":30,"rhr":52,"hrv":88},
+    {"day":"Sat","sleepHours":8.33,"deepHours":1.33,"remHours":1.92,"breathRate":16.0,"snoreMin":3,"rhr":51,"hrv":84},
+    {"day":"Sun","sleepHours":7.83,"deepHours":1.17,"remHours":1.83,"breathRate":16.4,"snoreMin":10,"rhr":54,"hrv":58},
+    {"day":"Mon","sleepHours":6.67,"deepHours":1.0,"remHours":1.58,"breathRate":16.7,"snoreMin":12,"rhr":55,"hrv":58}
+  ],
+  "logicRules": [
+    "Clarity likely when ketones >= 0.5 AND HRV above baseline AND sleep > 7h45m.",
+    "Irritability risk increases when caffeine high + ketones low + sleep variable/short.",
+    "Ketone regressions likely after late night + high stress + illness symptoms.",
+    "Burnout risk high when sleep < 7h AND HRV suppressed AND RHR elevated, regardless of ketones."
+  ],
+  "insights": [
+    "Sleep/recovery appears to be the master variable for day quality.",
+    "Ketones seem to affect mental texture (clarity) more than raw energy.",
+    "Confounders to track explicitly: illness severity, bedtime, caffeine total, late eating, training intensity, stress spikes."
+  ]
+}
