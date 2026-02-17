@@ -60,10 +60,20 @@
     }
     footer { margin-top: 28px; color: var(--muted); font-size: .9rem; }
     code { color: #c7d4ff; }
+  
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+    .logo{height:36px;width:auto}
+    .homebtn{display:inline-block;border:1px solid #2b3440;border-radius:10px;padding:8px 12px;color:#58a6ff;text-decoration:none;background:#161b22}
+    .homebtn:hover{border-color:#58a6ff}
   </style>
 </head>
 <body>
   <main class="wrap">
+    <header class="topbar">
+      <a href="./index.html"><img class="logo" src="./assets/rse-logo.svg" alt="RSE logo"/></a>
+      <a class="homebtn" href="./index.html">Home</a>
+    </header>
+
     <h1>Dashboard of Dashboards</h1>
     <div class="sub">Rod’s visual layer — quick access to all life domains.</div>
 
