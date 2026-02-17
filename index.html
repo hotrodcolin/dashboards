@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rod Dashboards</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #121a33;
+      --text: #e9eefc;
+      --muted: #a9b4d0;
+      --accent: #6ea8fe;
+      --accent2: #7ef0c2;
+      --border: #27345f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 700px at 20% -10%, #1b2a55 0%, var(--bg) 45%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 48px 20px 64px; }
+    h1 { margin: 0 0 8px; font-size: 2rem; }
+    .sub { color: var(--muted); margin-bottom: 28px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    a.card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+      min-height: 112px;
+    }
+    a.card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+    .name { font-weight: 700; margin-bottom: 6px; }
+    .desc { color: var(--muted); font-size: .95rem; }
+    .pill {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: .8rem;
+      color: #072;
+      background: var(--accent2);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-weight: 700;
+    }
+    footer { margin-top: 28px; color: var(--muted); font-size: .9rem; }
+    code { color: #c7d4ff; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Dashboard of Dashboards</h1>
+    <div class="sub">Rod’s visual layer — quick access to all life domains.</div>
+
+    <section class="grid">
+      <a class="card" href="./health/">
+        <div class="name">Health</div>
+        <div class="desc">Experiments, biomarkers, energy, recovery, keto logs.</div>
+        <span class="pill">Active</span>
+      </a>
+      <a class="card" href="./travel/">
+        <div class="name">Travel</div>
+        <div class="desc">Trips, planning boards, places, people, logistics.</div>
+      </a>
+      <a class="card" href="./therapy/">
+        <div class="name">Therapy</div>
+        <div class="desc">Themes, patterns, somatic notes, reflection arcs.</div>
+      </a>
+      <a class="card" href="./learning-ai/">
+        <div class="name">Learning AI</div>
+        <div class="desc">Study progress, projects, concepts, milestones.</div>
+      </a>
+      <a class="card" href="./reading-ideas/">
+        <div class="name">Reading & Ideas</div>
+        <div class="desc">Books, notes, concept maps, synthesis threads.</div>
+      </a>
+      <a class="card" href="./systems/">
+        <div class="name">Systems</div>
+        <div class="desc">Operating principles, routines, architecture updates.</div>
+      </a>
+    </section>
+
+    <footer>
+      Tip: this root <code>index.html</code> is your GitHub Pages home. We’ll link each new dashboard here as it ships.
+    </footer>
+  </main>
+</body>
+</html>
