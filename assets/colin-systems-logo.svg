@@ -1,0 +1,12 @@
+<svg width="680" height="140" viewBox="0 0 680 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#58A6FF"/>
+      <stop offset="100%" stop-color="#7EE787"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="676" height="136" rx="24" fill="#0D1117" stroke="#2B3440" stroke-width="4"/>
+  <text x="36" y="78" fill="url(#g)" font-family="Inter,Arial,sans-serif" font-size="54" font-weight="900" letter-spacing="1">COLIN</text>
+  <text x="332" y="78" fill="#9FB0C3" font-family="Inter,Arial,sans-serif" font-size="44" font-weight="800" letter-spacing="4">SYSTEMS</text>
+  <line x1="36" y1="96" x2="642" y2="96" stroke="#2B3440"/>
+</svg>
