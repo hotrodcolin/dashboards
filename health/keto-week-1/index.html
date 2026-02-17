@@ -23,30 +23,29 @@
     .bar{height:9px;background:#253042;border-radius:999px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--accent),#7ee787)}
     ul{margin:8px 0 0 18px} li{margin:6px 0}
     .muted{color:var(--muted)} a{color:var(--accent);text-decoration:none}
+    .section-title{margin:18px 0 8px}
   </style>
 </head>
 <body>
   <main class="wrap">
     <h1>Keto Week 1 Dashboard</h1>
-    <div class="sub">Experiment: Week 1 Keto + Illness + High Workload • Window: Mon Feb 9 → Mon Feb 16, 2026</div>
+    <div class="sub">Primary focus: KetoMojo outcomes. Sleep/recovery shown as complementary context.</div>
 
+    <h3 class="section-title">KetoMojo — Primary Signals</h3>
+    <section class="grid" id="keto-cards"></section>
+
+    <section class="card" style="overflow:auto;margin-bottom:14px">
+      <h3 style="margin-top:0">KetoMojo Daily (Mon→Mon)</h3>
+      <table id="keto-table"><thead><tr><th>Day</th><th>Date</th><th>Glucose</th><th>Ketones</th><th>GKI</th><th>State</th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <h3 class="section-title">Recovery Context (Complementary)</h3>
     <section class="grid" id="weekly-cards"></section>
 
     <section class="two">
       <div class="card">
-        <h3 style="margin-top:0">Core Narrative</h3>
-        <p class="muted">Two competing forces: metabolic movement toward ketosis (best clarity days around ketones 0.5–0.6) versus recovery disruption (illness + stress + late nights) causing HRV suppression, RHR rise, sleep decline, and burnout-style crash pattern.</p>
-      </div>
-      <div class="card">
         <h3 style="margin-top:0">Sleep Load Trend (hours)</h3>
         <div id="sleep-bars"></div>
-      </div>
-    </section>
-
-    <section class="two" style="margin-top:14px">
-      <div class="card" style="overflow:auto">
-        <h3 style="margin-top:0">KetoMojo Daily (Mon→Mon)</h3>
-        <table id="keto-table"><thead><tr><th>Day</th><th>Date</th><th>Glucose</th><th>Ketones</th><th>GKI</th><th>State</th></tr></thead><tbody></tbody></table>
       </div>
       <div class="card" style="overflow:auto">
         <h3 style="margin-top:0">Eight Sleep Daily (Tue→Mon)</h3>
@@ -65,12 +64,24 @@
       </div>
     </section>
 
-    <p class="muted" style="margin-top:18px">Next data fields to add: <b>clarity score</b>, illness severity, caffeine total, training intensity, late eating, workload spikes.</p>
+    <p class="muted" style="margin-top:18px">Next: add clarity score + caffeine + illness + stress so ketone shifts can be interpreted with confounders.</p>
     <p><a href="../index.html">← Back to Health</a> • <a href="../../index.html">Dashboard Home</a></p>
   </main>
 
 <script>
 fetch('./data.json').then(r=>r.json()).then(data=>{
+  const avgKet = data.ketoMojo.reduce((a,b)=>a+b.ketones,0)/data.ketoMojo.length;
+  const avgGlu = data.ketoMojo.reduce((a,b)=>a+b.glucose,0)/data.ketoMojo.length;
+  const minGki = Math.min(...data.ketoMojo.map(d=>d.gki));
+  const ketosisDays = data.ketoMojo.filter(d=>d.ketones>=0.5).length;
+  const ketoCards = [
+    ['Avg Ketones', avgKet.toFixed(2)+' mmol/L'],
+    ['Avg Glucose', avgGlu.toFixed(0)+' mg/dL'],
+    ['Best (lowest) GKI', minGki.toFixed(1)],
+    ['Ketosis Days (≥0.5)', `${ketosisDays}/${data.ketoMojo.length}`]
+  ];
+  document.getElementById('keto-cards').innerHTML = ketoCards.map(([k,v])=>`<div class="card"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
+
   const cards = [
     ['Deep Sleep', data.weeklySummary.deepSleep],
     ['REM Sleep', data.weeklySummary.remSleep],
